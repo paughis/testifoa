@@ -18,9 +18,8 @@ API_key = st.secrets['api_key']
 def obtain_data(city_name):
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}'
     result = requests.get(url)
-    json = result.json()
-
-    return json
+    #json = result.json()
+    return result
 
 def weather_info(data):
     #data = obtain_data(city_name)

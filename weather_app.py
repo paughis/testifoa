@@ -49,52 +49,53 @@ def main():
     city_name = st.text_input("Città:")
     
     col1, col2 = st.columns(2)
-    if st.button('🔍 Go!'):
+    
 
         # checkeamos si esta en blanco
-        if not city_name.strip():
-            st.error('⚠️ Inserire il nome di una città!')
-            return
+    if not city_name.strip():
+        st.error('⚠️ Inserire il nome di una città!')
+        return
         
     response = obtain_data(city_name)
 
     # checkeamos que la ciudad exista en la API
-    if response.status_code != 200:
-        st.error(f'⚠️ Oops, impossibile trovare la città "{city_name}". Controlla ortografia e riprova')
-        return
+    if st.button('🔍 Go!'):
+        if response.status_code != 200:
+            st.error(f'⚠️ Oops, impossibile trovare la città "{city_name}". Controlla ortografia e riprova')
+            return
     
-    data = response.json()
-    weather_data = weather_info(data)
+        data = response.json()
+        weather_data = weather_info(data)
 
-    with col1:
-        temp = weather_data[0]
-        feelslike = weather_data[1]
-        temp_min = weather_data[2]
-        temp_max = weather_data[3]
-        wind = weather_data[4]
-        sunrise = weather_data[5]
-        sunrise_time = to_datetime(sunrise)
-        sunset = weather_data[6]
-        sunset_time = to_datetime(sunset)
+        with col1:
+            temp = weather_data[0]
+            feelslike = weather_data[1]
+            temp_min = weather_data[2]
+            temp_max = weather_data[3]
+            wind = weather_data[4]
+            sunrise = weather_data[5]
+            sunrise_time = to_datetime(sunrise)
+            sunset = weather_data[6]
+            sunset_time = to_datetime(sunset)
 
-        st.info(f'**Temperatura attuale** ➡️ {temp}°C')
-        st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
-        st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
-        st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
-        st.info(f'**Velocità del vento** ➡️ {wind} m/s')
-        st.info(f'**Alba** ➡️ {sunrise_time}')
-        st.info(f'**Tramonto** ➡️ {sunset_time}')
+            st.info(f'**Temperatura attuale** ➡️ {temp}°C')
+            st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
+            st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
+            st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
+            st.info(f'**Velocità del vento** ➡️ {wind} m/s')
+            st.info(f'**Alba** ➡️ {sunrise_time}')
+            st.info(f'**Tramonto** ➡️ {sunset_time}')
 
-    with col2:
-        lat = weather_data[7]
-        lon = weather_data[8]
+        with col2:
+            lat = weather_data[7]
+            lon = weather_data[8]
 
-        df = pd.DataFrame({
-            'lat' : [lat],
-            'lon' : [lon]
-        })
+            df = pd.DataFrame({
+                'lat' : [lat],
+                'lon' : [lon]
+            })
 
-        st.map(df)
+            st.map(df)
 
 
 if __name__ == "__main__":

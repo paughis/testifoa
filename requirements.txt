@@ -3,5 +3,3 @@ pandas
 matplotlib
 scikit-learn
 seaborn
-joblib
-io

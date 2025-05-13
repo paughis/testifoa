@@ -1,17 +1,21 @@
 # streamlit run weather_app.py
 
 import streamlit as st
-import os
-#import dotenv
-from dotenv import load_dotenv
-import requests
-#import datetime
-import time
 import pandas as pd
+import os
+import requests
+import time
 
-load_dotenv()       # RECORDAR METER ESTO SIEMPRE!!! porque va a tomar el API_key de la cartella
+# #solo locale
+# from dotenv import load_dotenv
 
-API_key = os.getenv('api_key')
+# load_dotenv()       # RECORDAR METER ESTO SIEMPRE!!! porque va a tomar el API_key de la cartella
+
+# API_key = os.getenv('api_key')
+
+#secrets per stremalit.io
+# secrets in api_key in stringa api_key = "xxxxxxxxxxxxxxxxxxxxxxxx"
+API_key = st.secrets['api_key']
 
 def obtain_data(city_name):
     url = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}'

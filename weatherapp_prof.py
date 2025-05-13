@@ -49,7 +49,7 @@ def main():
     st.markdown('https://openweathermap.org/api') 
 
     #image1 = 'sfondo.jpg'
-    #st.image(image1, caption='Open Weather API', use_container_width =True)
+    st.image(image1, caption='Open Weather API', use_container_width =True)
 
     col1, col2 = st.columns(2)
     with col1:

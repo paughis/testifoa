@@ -52,8 +52,8 @@ def main():
 
     
     col1, col2 = st.columns(2)
-    if st.button('🔍 Go!'):
-        if city_name is not None:
+    if city_name is not None:
+        if st.button('🔍 Go!'):  
             with col1:
                 temp = weather_info(city_name)[0]
                 feelslike = weather_info(city_name)[1]

@@ -3,4 +3,7 @@ pandas
 matplotlib
 scikit-learn
 seaborn
-time
+# time
+# PIL
+openpyxl
+xlsxwriter

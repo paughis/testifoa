@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import requests
 #import datetime
 import time
+import pandas as pd
 
 load_dotenv()       # RECORDAR METER ESTO SIEMPRE!!! porque va a tomar el API_key de la cartella
 
@@ -28,7 +29,9 @@ def weather_info(city_name):
     wind = round(data['wind']['speed'], 2)
     sunrise = data['sys']['sunrise']
     sunset = data['sys']['sunset']
-    output = [temp,feelslike,temp_min,temp_max,wind,sunrise,sunset]
+    lat = data['coord']['lat']
+    lon = data['coord']['lon']
+    output = [temp,feelslike,temp_min,temp_max,wind,sunrise,sunset,lat,lon]
 
     return  output
 
@@ -45,24 +48,38 @@ def main():
     #st.text('...')
     city_name = st.text_input("Città:")
 
+    
+    col1, col2 = st.columns(2)
     if st.button('🔍 Go!'):
-        temp = weather_info(city_name)[0]
-        feelslike = weather_info(city_name)[1]
-        temp_min = weather_info(city_name)[2]
-        temp_max = weather_info(city_name)[3]
-        wind = weather_info(city_name)[4]
-        sunrise = weather_info(city_name)[5]
-        sunrise_time = to_datetime(sunrise)
-        sunset = weather_info(city_name)[6]
-        sunset_time = to_datetime(sunset)
+        with col1:
+            temp = weather_info(city_name)[0]
+            feelslike = weather_info(city_name)[1]
+            temp_min = weather_info(city_name)[2]
+            temp_max = weather_info(city_name)[3]
+            wind = weather_info(city_name)[4]
+            sunrise = weather_info(city_name)[5]
+            sunrise_time = to_datetime(sunrise)
+            sunset = weather_info(city_name)[6]
+            sunset_time = to_datetime(sunset)
 
-        st.info('**Temperatura attuale (°C) =**' , temp,'°C')
-        st.info('**Temperatura percepita (°C) =**' , feelslike,'°C')
-        st.info('**Temperatura minima =**' , temp_min, '°C')
-        st.info('**Temperatura massima =**' , temp_max, '°C')
-        st.info('**Velocità del vento =**' , wind, 'm/s')
-        st.info('**Alba =**' , sunrise_time)
-        st.info('**Tramonto =** ' , sunset_time)
+            st.info(f'**Temperatura attuale** ➡️ {temp}°C')
+            st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
+            st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
+            st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
+            st.info(f'**Velocità del vento** ➡️ {wind} m/s')
+            st.info(f'**Alba** ➡️ {sunrise_time}')
+            st.info(f'**Tramonto** ➡️ {sunset_time}')
+
+        with col2:
+            lat = weather_info(city_name)[7]
+            lon = weather_info(city_name)[8]
+
+            df = pd.DataFrame({
+                'lat' : [lat],
+                'lon' : [lon]
+            })
+
+            st.map(df)
 
 
 if __name__ == "__main__":

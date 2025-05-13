@@ -3,7 +3,6 @@ pandas
 matplotlib
 scikit-learn
 seaborn
-# time
-# PIL
 openpyxl
 xlsxwriter
+# requests, dotenv, time y datetime nooo

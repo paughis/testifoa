@@ -2,7 +2,7 @@
 
 import streamlit as st
 import os
-import dotenv
+#import dotenv
 from dotenv import load_dotenv
 import requests
 #import datetime

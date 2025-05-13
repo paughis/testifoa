@@ -131,7 +131,7 @@ if st.button('Risultato'):
             st.success('Sei ariete', icon = '🐏')
         elif input4 == 'Lo volevo fare ma poi mi sono distratto/a':
             st.success('Sei sagitario', icon = '🏹')
-        elif input4 == 'Dovrei prima fare dei calcoli...':
+        elif input4 == 'Dovrei prima fare qualche calcolo':
             st.success('Sei vergine', icon = '📐')
         else:
             st.success('Sei bilancia' , icon = '🙊')

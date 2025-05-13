@@ -24,9 +24,11 @@ def weather_info(city_name):
     temp = round(data['main']['temp'] - 273.15,2)               # convertimos la tem a celcius--> - 273.15
     feelslike = round(data['main']['feels_like'] - 273.15,2)
     temp_min = round(data['main']['temp_min'] - 273.15,2)
+    temp_max = round(data['main']['temp_max'] - 273.15,2)
+    wind = round(data['wind']['speed'], 2)
     sunrise = data['sys']['sunrise']
     sunset = data['sys']['sunset']
-    output = [temp,feelslike,temp_min,sunrise,sunset]
+    output = [temp,feelslike,temp_min,temp_max,wind,sunrise,sunset]
 
     return  output
 
@@ -38,26 +40,29 @@ def to_datetime(float_data):
 
 
 def main():
-    st.title(':rainbow[weather app]')
-    st.subheader('...')
-    st.text('...')
+    st.title('☔️ :rainbow[Weather Machine] ☔️')
+    # st.subheader('...')
+    #st.text('...')
     city_name = st.text_input("Città:")
 
-    if st.button('Go!'):
+    if st.button('🔍 Go!'):
         temp = weather_info(city_name)[0]
         feelslike = weather_info(city_name)[1]
         temp_min = weather_info(city_name)[2]
-        sunrise = weather_info(city_name)[3]
-        sunrise_time  = str(datetime.datetime.fromtimestamp(sunrise))
-        sunrise_time  = sunrise_time.split()
-        sunrise_time = sunrise_time[1]
-        sunset = weather_info(city_name)[4]
+        temp_max = weather_info(city_name)[3]
+        wind = weather_info(city_name)[4]
+        sunrise = weather_info(city_name)[5]
+        sunrise_time = to_datetime(sunrise)
+        sunset = weather_info(city_name)[6]
+        sunset_time = to_datetime(sunset)
 
-        st.write('Temperatura attuale (°C) =' , temp,'°C')
-        st.write('Temperatura percepita (°C) =' , feelslike,'°C')
-        st.write('Temperatura minima =' , temp_min, '°C')
-        st.write('Alba =' , sunrise_time)
-        st.write('Tramonto = ' , sunset)
+        st.write('**Temperatura attuale (°C) =**' , temp,'°C')
+        st.write('**Temperatura percepita (°C) =**' , feelslike,'°C')
+        st.write('**Temperatura minima =**' , temp_min, '°C')
+        st.write('**Temperatura massima =**' , temp_max, '°C')
+        st.write('**Velocità del vento =**' , wind, 'm/s')
+        st.write('**Alba =**' , sunrise_time)
+        st.write('**Tramonto =** ' , sunset_time)
 
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ def weather_info(city_name):
     wind = round(data['wind']['speed'], 2)
     #sunrise = data['sys']['sunrise']
     #sunset = data['sys']['sunset']
-    output = [temp,feelslike,temp_min,temp_max,wind,sunrise,sunset]
+    output = [temp,feelslike,temp_min,temp_max,wind] #,sunrise,sunset]
 
     return  output
 
@@ -67,7 +67,5 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-import datetime
 
 

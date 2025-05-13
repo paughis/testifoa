@@ -6,14 +6,12 @@ import os
 import requests
 import time
 
-# #solo locale
+#### solo locale:
 # from dotenv import load_dotenv
-
 # load_dotenv()       # RECORDAR METER ESTO SIEMPRE!!! porque va a tomar el API_key de la cartella
-
 # API_key = os.getenv('api_key')
 
-#secrets per stremalit.io
+#### secrets per stremalit.io:
 # secrets in api_key in stringa api_key = "xxxxxxxxxxxxxxxxxxxxxxxx"
 API_key = st.secrets['api_key']
 
@@ -55,35 +53,38 @@ def main():
     
     col1, col2 = st.columns(2)
     if st.button('🔍 Go!'):
-        with col1:
-            temp = weather_info(city_name)[0]
-            feelslike = weather_info(city_name)[1]
-            temp_min = weather_info(city_name)[2]
-            temp_max = weather_info(city_name)[3]
-            wind = weather_info(city_name)[4]
-            sunrise = weather_info(city_name)[5]
-            sunrise_time = to_datetime(sunrise)
-            sunset = weather_info(city_name)[6]
-            sunset_time = to_datetime(sunset)
+        if city_name is not None:
+            with col1:
+                temp = weather_info(city_name)[0]
+                feelslike = weather_info(city_name)[1]
+                temp_min = weather_info(city_name)[2]
+                temp_max = weather_info(city_name)[3]
+                wind = weather_info(city_name)[4]
+                sunrise = weather_info(city_name)[5]
+                sunrise_time = to_datetime(sunrise)
+                sunset = weather_info(city_name)[6]
+                sunset_time = to_datetime(sunset)
 
-            st.info(f'**Temperatura attuale** ➡️ {temp}°C')
-            st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
-            st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
-            st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
-            st.info(f'**Velocità del vento** ➡️ {wind} m/s')
-            st.info(f'**Alba** ➡️ {sunrise_time}')
-            st.info(f'**Tramonto** ➡️ {sunset_time}')
+                st.info(f'**Temperatura attuale** ➡️ {temp}°C')
+                st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
+                st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
+                st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
+                st.info(f'**Velocità del vento** ➡️ {wind} m/s')
+                st.info(f'**Alba** ➡️ {sunrise_time}')
+                st.info(f'**Tramonto** ➡️ {sunset_time}')
 
-        with col2:
-            lat = weather_info(city_name)[7]
-            lon = weather_info(city_name)[8]
+            with col2:
+                lat = weather_info(city_name)[7]
+                lon = weather_info(city_name)[8]
 
-            df = pd.DataFrame({
-                'lat' : [lat],
-                'lon' : [lon]
-            })
+                df = pd.DataFrame({
+                    'lat' : [lat],
+                    'lon' : [lon]
+                })
 
-            st.map(df)
+                st.map(df)
+        else:
+            st.warning("errore di ricerca!")
 
 
 if __name__ == "__main__":

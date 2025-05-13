@@ -1,0 +1,5 @@
+Aqui ponemos todas las librerias que necesitamos
+
+streamlit
+pandas
+matplotlib

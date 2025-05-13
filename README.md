@@ -1,6 +1,6 @@
 # testifoa
 lezioniML
 
-:rainbow[holiholi] 💖
+holiholi 💖
 
 🐈🐈🐈🐈🐈

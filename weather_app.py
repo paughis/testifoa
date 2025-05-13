@@ -56,13 +56,13 @@ def main():
         sunset = weather_info(city_name)[6]
         sunset_time = to_datetime(sunset)
 
-        st.write('**Temperatura attuale (°C) =**' , temp,'°C')
-        st.write('**Temperatura percepita (°C) =**' , feelslike,'°C')
-        st.write('**Temperatura minima =**' , temp_min, '°C')
-        st.write('**Temperatura massima =**' , temp_max, '°C')
-        st.write('**Velocità del vento =**' , wind, 'm/s')
-        st.write('**Alba =**' , sunrise_time)
-        st.write('**Tramonto =** ' , sunset_time)
+        st.info('**Temperatura attuale (°C) =**' , temp,'°C')
+        st.info('**Temperatura percepita (°C) =**' , feelslike,'°C')
+        st.info('**Temperatura minima =**' , temp_min, '°C')
+        st.info('**Temperatura massima =**' , temp_max, '°C')
+        st.info('**Velocità del vento =**' , wind, 'm/s')
+        st.info('**Alba =**' , sunrise_time)
+        st.info('**Tramonto =** ' , sunset_time)
 
 
 if __name__ == "__main__":

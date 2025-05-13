@@ -103,12 +103,20 @@ st.subheader(':violet[Verifica comunicazione e dinamiche di gruppo]')
 input1 = st.text_input("Qual è il tuo colore preferito?")
 input2 = st.text_input("Qual è l'ultimo libro che hai letto?")
 input3 = st.number_input("Quanti animali domestici hai?", min_value = 0, max_value = 10)
-input4 = st.radio("Hai mai ucciso a qualcuno/a?", ('Si', 'No', 'Magari' , 'Si, con una lavatrice', 'Puoi ripetere la domanda?', 'Non ancora, ma non si sa mai', 'Lo volevo fare ma poi mi sono distratto/a', 'No, ma lo sarei se fosse giusto', 'Preferisco non rispondere'))
+input4 = st.radio("Hai mai ucciso a qualcuno/a?", ('Si', 
+                                                   'No', 
+                                                   'Magari' , 
+                                                   'Si, con una lavatrice', 
+                                                   'Puoi ripetere la domanda?', 
+                                                   'Non ancora, ma non si sa mai', 
+                                                   'Lo volevo fare ma poi mi sono distratto/a', 
+                                                   'Dovrei prima fare dei calcoli...', 
+                                                   'Preferisco non rispondere'))
 
 
 if st.button('Risultato'):
     with st.spinner('Sto pensando...'):
-        time.sleep(3)
+        time.sleep(2)
         if input4 == 'Si':
             st.success('Sei scorpione', icon = '🦂')
         elif input4 == 'Si, con una lavatrice':
@@ -123,10 +131,10 @@ if st.button('Risultato'):
             st.success('Sei ariete', icon = '🐏')
         elif input4 == 'Lo volevo fare ma poi mi sono distratto/a':
             st.success('Sei sagitario', icon = '🏹')
-        elif input4 == 'No, ma lo sarei se fosse giusto':
-            st.success('Sei vergine', icon = '...')
+        elif input4 == 'Dovrei prima fare dei calcoli...':
+            st.success('Sei vergine', icon = '📐')
         else:
-            st.success('Sei bilancia' , icon = '...')
+            st.success('Sei bilancia' , icon = '🙊')
     
     
     # st.success('Sei scorpione', icon = '⭐') # display a success message: (body, icon = "icon")

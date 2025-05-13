@@ -1,11 +1,16 @@
 import streamlit as st
+import os
+from dotenv import load_dotenv
+import requests
 
 def main():
     st.title(':rainbow[weather app]')
     st.subheader('...')
     st.text('...')
 
-    
+    load_dotenv()
+
+    API_key = os.getenv('api_key')
 
 if __name__ == "__main__":
     main()

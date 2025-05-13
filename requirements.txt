@@ -8,3 +8,4 @@ seaborn
 openpyxl
 xlsxwriter
 dotenv
+requests

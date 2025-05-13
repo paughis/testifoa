@@ -2,7 +2,7 @@
 
 import streamlit as st
 import pandas as pd
-import os
+# import os (solo locale!)
 import requests
 import time
 
@@ -22,8 +22,8 @@ def obtain_data(city_name):
 
     return json
 
-def weather_info(city_name):
-    data = obtain_data(city_name)
+def weather_info(data):
+    #data = obtain_data(city_name)
     temp = round(data['main']['temp'] - 273.15,2)               # convertimos la tem a celcius--> - 273.15
     feelslike = round(data['main']['feels_like'] - 273.15,2)
     temp_min = round(data['main']['temp_min'] - 273.15,2)
@@ -46,45 +46,56 @@ def to_datetime(float_data):
 
 def main():
     st.title('☔️ :rainbow[Weather Machine] ☔️')
-    # st.subheader('...')
-    #st.text('...')
-    city_name = st.text_input("Città:")
 
+    city_name = st.text_input("Città:")
     
     col1, col2 = st.columns(2)
-    if city_name is not None:
-        if st.button('🔍 Go!'):  
-            with col1:
-                temp = weather_info(city_name)[0]
-                feelslike = weather_info(city_name)[1]
-                temp_min = weather_info(city_name)[2]
-                temp_max = weather_info(city_name)[3]
-                wind = weather_info(city_name)[4]
-                sunrise = weather_info(city_name)[5]
-                sunrise_time = to_datetime(sunrise)
-                sunset = weather_info(city_name)[6]
-                sunset_time = to_datetime(sunset)
+    if st.button('🔍 Go!'):
 
-                st.info(f'**Temperatura attuale** ➡️ {temp}°C')
-                st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
-                st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
-                st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
-                st.info(f'**Velocità del vento** ➡️ {wind} m/s')
-                st.info(f'**Alba** ➡️ {sunrise_time}')
-                st.info(f'**Tramonto** ➡️ {sunset_time}')
+        # checkeamos si esta en blanco
+        if not city_name.strip():
+            st.error('⚠️ Inserire il nome di una città!')
+            return
+        
+    response = obtain_data(city_name)
 
-            with col2:
-                lat = weather_info(city_name)[7]
-                lon = weather_info(city_name)[8]
+    # checkeamos que la ciudad exista en la API
+    if response.status_code != 200:
+        st.error(f'⚠️ Oops, impossibile trovare la città "{city_name}". Controlla ortografia e riprova')
+        return
+    
+    data = response.json()
+    weather_data = weather_info(data)
 
-                df = pd.DataFrame({
-                    'lat' : [lat],
-                    'lon' : [lon]
-                })
+    with col1:
+        temp = weather_data[0]
+        feelslike = weather_data[1]
+        temp_min = weather_data[2]
+        temp_max = weather_data[3]
+        wind = weather_data[4]
+        sunrise = weather_data[5]
+        sunrise_time = to_datetime(sunrise)
+        sunset = weather_data[6]
+        sunset_time = to_datetime(sunset)
 
-                st.map(df)
-        else:
-            st.warning("errore di ricerca!")
+        st.info(f'**Temperatura attuale** ➡️ {temp}°C')
+        st.info(f'**Temperatura percepita** ➡️ {feelslike}°C')
+        st.info(f'**Temperatura minima** ➡️ {temp_min}°C')
+        st.info(f'**Temperatura massima** ➡️ {temp_max} °C')
+        st.info(f'**Velocità del vento** ➡️ {wind} m/s')
+        st.info(f'**Alba** ➡️ {sunrise_time}')
+        st.info(f'**Tramonto** ➡️ {sunset_time}')
+
+    with col2:
+        lat = weather_data[7]
+        lon = weather_data[8]
+
+        df = pd.DataFrame({
+            'lat' : [lat],
+            'lon' : [lon]
+        })
+
+        st.map(df)
 
 
 if __name__ == "__main__":

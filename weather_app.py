@@ -53,7 +53,7 @@ def main():
 
         # checkeamos si esta en blanco
     if not city_name.strip():
-        st.error('⚠️ Inserire il nome di una città!')
+        st.info('👆 Inserire il nome di una città 👆')
         return
         
     response = obtain_data(city_name)

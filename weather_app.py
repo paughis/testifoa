@@ -5,8 +5,8 @@ import os
 import dotenv
 from dotenv import load_dotenv
 import requests
-import datetime
-import time
+#import datetime
+#import time
 
 load_dotenv()       # RECORDAR METER ESTO SIEMPRE!!! porque va a tomar el API_key de la cartella
 
@@ -26,17 +26,17 @@ def weather_info(city_name):
     temp_min = round(data['main']['temp_min'] - 273.15,2)
     temp_max = round(data['main']['temp_max'] - 273.15,2)
     wind = round(data['wind']['speed'], 2)
-    sunrise = data['sys']['sunrise']
-    sunset = data['sys']['sunset']
+    #sunrise = data['sys']['sunrise']
+    #sunset = data['sys']['sunset']
     output = [temp,feelslike,temp_min,temp_max,wind,sunrise,sunset]
 
     return  output
 
-def to_datetime(float_data):
-    hr = time.localtime(float_data).tm_hour
-    min = time.localtime(float_data).tm_min
+# def to_datetime(float_data):
+#     hr = time.localtime(float_data).tm_hour
+#     min = time.localtime(float_data).tm_min
 
-    return(f'{hr}:{min}')
+#     return(f'{hr}:{min}')
 
 
 def main():
@@ -51,18 +51,18 @@ def main():
         temp_min = weather_info(city_name)[2]
         temp_max = weather_info(city_name)[3]
         wind = weather_info(city_name)[4]
-        sunrise = weather_info(city_name)[5]
-        sunrise_time = to_datetime(sunrise)
-        sunset = weather_info(city_name)[6]
-        sunset_time = to_datetime(sunset)
+        #sunrise = weather_info(city_name)[5]
+        #sunrise_time = to_datetime(sunrise)
+        #sunset = weather_info(city_name)[6]
+        #sunset_time = to_datetime(sunset)
 
         st.write('**Temperatura attuale (°C) =**' , temp,'°C')
         st.write('**Temperatura percepita (°C) =**' , feelslike,'°C')
         st.write('**Temperatura minima =**' , temp_min, '°C')
         st.write('**Temperatura massima =**' , temp_max, '°C')
         st.write('**Velocità del vento =**' , wind, 'm/s')
-        st.write('**Alba =**' , sunrise_time)
-        st.write('**Tramonto =** ' , sunset_time)
+        #st.write('**Alba =**' , sunrise_time)
+        #st.write('**Tramonto =** ' , sunset_time)
 
 
 if __name__ == "__main__":
